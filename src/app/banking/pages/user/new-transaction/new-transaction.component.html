@@ -1,0 +1,63 @@
+<form [formGroup]="myFormTransaction" (submit)="onSubmitTransaction()">
+  <div class="p-3">
+    <h2>new Transaction</h2>
+    <div class="card p-3">
+      <div class="container">
+        <h1>Your Account balance : S/50.00</h1>
+        <div class="row">
+          <p>
+            <mat-form-field class="w50">
+              <mat-label>Transaction Type</mat-label>
+              <mat-select formControlName="transactionType" name="food">
+                <mat-option *ngFor="let food of foods" [value]="food">
+                  {{ food }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="w50">
+              <mat-label>Choose a contact</mat-label>
+              <mat-select formControlName="choseContacts" name="food">
+                <mat-option *ngFor="let food of foods" [value]="food">
+                  {{ food }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field floatLabel="always" class="w50">
+              <mat-label>Amount</mat-label>
+              <input
+                formControlName="amount"
+                matInput
+                type="number"
+                class="example-right-align"
+                placeholder="0"
+              />
+              <span matTextPrefix>S/&nbsp;</span>
+              <span matTextSuffix>.00</span>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="fill" class="w50">
+              <mat-label>Number Account</mat-label>
+              <input
+                type="text"
+                formControlName="numberAccount"
+                matInput
+                placeholder="AB10 751 145 341 145"
+              />
+            </mat-form-field>
+          </p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button style="margin-right: 20px" color="accent">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary">Save</button>
+      </div>
+    </div>
+  </div>
+</form>

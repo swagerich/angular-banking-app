@@ -1,0 +1,35 @@
+<div class="m-3 p-3">
+  <h2>My Account</h2>
+  <div class="d-flex flex-row card justify-content-between card me-5 ms-5 mb-2 p-3">
+    <banking-statistcs-info *ngFor="let list of infoList"
+    [infoInput]="list">
+  </banking-statistcs-info>
+  </div>
+
+  <div class="card m-3 p-3">
+    <div class="d-flex flex-row align-item-start">
+      <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+      <div class="me-3">
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          placeholder="--/--/--"
+        />
+      </div>
+
+      <label for="lastDate" class="col-sm-2 col-form-label">Last Date</label>
+      <div class="">
+        <input
+          type="date"
+          class="form-control"
+          id="lastDate"
+          placeholder="--/--/--"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="card m-3 p-3">
+
+  </div>
+</div>

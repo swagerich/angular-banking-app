@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary avbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="'/'+ role">Bank Inter</a>
+        <button class="navbar-toggler" type="button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <div class="navbar-nav">
+            <a class="nav-link"  [routerLink]="'/'+ role" >Dashboard</a>
+            <a class="nav-link" [routerLinkActive]="'active'" *ngIf="!isAdmin" [routerLink]="'/user/transactions'" >My Transactions</a>
+            <a class="nav-link" *ngIf="!isAdmin" [routerLink]="'/user/contacts'">My Contacts</a>
+            <a class="nav-link" *ngIf="isAdmin" [routerLink]="'/admin/customers'">Customers</a>
+          </div>
+        </div>
+        <div class="d-flex">
+          <a [routerLink]="'/' + role + '/profile'" class="btn btn-success" type="submit">
+            <em class="fas fa-user">&nbsp;</em>Jhon Doe
+          </a>
+      </div>
+
+    </div>
+    
+  </nav>

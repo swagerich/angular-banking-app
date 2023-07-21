@@ -1,0 +1,95 @@
+<div class="m-3 p-3">
+<h2>My transactions</h2>
+<div class="d-flex justify-content-end mb-3">
+    <button type="button" routerLink="/user/new-transaction" class="btn btn-primary">
+      <em class="fa fa-plus">&nbsp;</em>  New Transaction
+    </button>
+</div>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>tatat</td>
+                <td>tatat</td>
+                <td>tatat</td>
+                <td>tatat</td>
+            </tr>
+    
+        </tbody>
+    </table>
+</div>
+</div>
+<!--
+
+    <div class="container">
+      <mat-table [dataSource]="comments" matSort>
+    
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >Usuario</mat-header-cell
+          >
+          <mat-cell *matCellDef="let comment">{{ comment.nombre }}</mat-cell>
+        </ng-container>
+
+       
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >email</mat-header-cell
+          >
+          <mat-cell *matCellDef="let comment">{{ comment.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="texto">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >comments</mat-header-cell
+          >
+          <mat-cell *matCellDef="let comment">{{ comment.texto }}</mat-cell>
+        </ng-container>
+
+    
+        <ng-container
+          *ngIf="isLogged()"
+          matColumnDef="actions"
+        >
+          <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+          <mat-cell  *matCellDef="let comment">
+            <button
+              mat-icon-button
+              color="warn"
+              *ngIf="comment.user.id === userId.id"
+              (click)="deleteComment(comment.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+ 
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+          *matRowDef="let comment; columns: displayedColumns"
+        ></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        [length]="totalComments"
+        [pageSize]="pageSize"
+        [pageIndex]="page"
+        (page)="pageEvents($event)"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+
+-->
