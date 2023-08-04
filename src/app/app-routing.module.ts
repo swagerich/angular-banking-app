@@ -4,7 +4,6 @@ import { SignupComponent } from './banking/auth/signup/signup.component';
 import { LoginComponent } from './banking/auth/login/login.component';
 import { UserDashboardComponent } from './banking/pages/user/user-dashboard/user-dashboard.component';
 import { TransactionsComponent } from './banking/pages/user/transactions/transactions.component';
-import { ContactComponent } from './banking/pages/user/contact/contact.component';
 import { NewTransactionComponent } from './banking/pages/user/new-transaction/new-transaction.component';
 import { NewContactComponent } from './banking/pages/user/new-contact/new-contact.component';
 import { ProfileComponent } from './banking/pages/profile/profile.component';
@@ -12,6 +11,9 @@ import { UserLayoutComponent } from './banking/pages/user/user-layout/user-layou
 import { AdminLayoutComponent } from './banking/pages/admin/admin-layout/admin-layout.component';
 import { ManageUsersComponent } from './banking/pages/admin/manage-users/manage-users.component';
 import { DashboardComponent } from './banking/pages/admin/dashboard/dashboard.component';
+import { userGuard } from './banking/auth/guards/user.guard';
+import { adminGuard } from './banking/auth/guards/admin.guard';
+import { ContactsComponent } from './banking/pages/user/contacts/contacts.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserLayoutComponent,
+    canActivate:[userGuard],
     children: [
       {
         path: 'dashboard',
@@ -39,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'contacts',
-        component: ContactComponent,
+        component: ContactsComponent,
       },
       {
         path: 'new-transaction',
@@ -66,6 +69,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate:[adminGuard],
     children: [
     {
       path:'customers',

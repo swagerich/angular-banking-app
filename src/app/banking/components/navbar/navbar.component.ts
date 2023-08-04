@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'bank-navbar',
@@ -6,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
+
+  private authService= inject(AuthService);
 
   @Input()
   public isAdmin : boolean= false;
@@ -19,4 +22,7 @@ export class NavbarComponent implements OnInit{
   
   }
   
+  logout():void{
+    this.authService.logout();
+  }
 }

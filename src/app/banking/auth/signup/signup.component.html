@@ -1,84 +1,153 @@
+<!--   class="row g-3 needs-validation was-validated" -->
+
 <div class="container-fluid card register-container">
   <div class="m-3 p-3">
-  <div class="mb-3 row">
-    <label for="firstName" class="col-sm-2 col-form-label">FirstName :</label>
-    <div class="col-sm-10">
-      <input
-        type="text"
-        class="form-control"
-        id="firstName"
-        placeholder="firstName"
-      />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="lastName" class="col-sm-2 col-form-label">LastName :</label>
-    <div class="col-sm-10">
-      <input
-        type="text"
-        class="form-control"
-        id="lastName"
-        placeholder="lastName"
-      />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="userName" class="col-sm-2 col-form-label">UserName :</label>
-    <div class="col-sm-10">
-      <input
-        type="text"
-        class="form-control"
-        id="userName"
-        placeholder="UserName"
-      />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="email" class="col-sm-2 col-form-label">Email :</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="email" placeholder="Email" />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="age" class="col-sm-2 col-form-label">Age :</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="age" placeholder="Age" />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="password" class="col-sm-2 col-form-label">Password :</label>
-    <div class="col-sm-10">
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        placeholder="password"
-      />
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="repeatPassword" class="col-sm-2 col-form-label"
-      >Repeat Password :</label
-    >
-    <div class="col-sm-10">
-      <input
-        type="password"
-        class="form-control"
-        id="repeatPassword"
-        placeholder="Repeat Password"
-      />
-    </div>
-  </div>
-  <div class="d-flex justify-content-between mb-3">
-    <button mat-raised-button color="primary" type="submit">
-      <em class="fas fa-sign-in-alt">&nbsp;</em>
-      Create an account
-    </button>
+    <h2 class="text-center">Create an Account</h2>
+    <form class="row g-3" [formGroup]="myFormAuth" (submit)="onSignupForm()">
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="firstName"
+              type="text"
+              class="form-control"
+              placeholder="firstName"
+            />
+            <div *ngIf="onFieldValidators('firstName')">
+              <span class="validator">is required</span>
+            </div>
+      <!--       <div class="invalid-feedback">Please choose a username.</div> -->
+            <!--               <div  class="valid-feedback">Looks good!</div> -->
+            <label for="firstName">First Name</label>
+          </div>
+        </div>
+      </div>
 
-    <div>
-      Already have an account?&nbsp;
-      <button mat-raised-button routerLink="/login">Login</button>
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="lastName"
+              type="text"
+              class="form-control"
+              placeholder="Last Name"
+            />
+            <div *ngIf="onFieldValidators('lastName')">
+              <span class="validator">is required</span>
+            </div>
+            <!-- <div class="invalid-feedback">Please choose a Last Name.</div> -->
+            <!--            <div class="valid-feedback">Looks good!</div> -->
+            <label>Last Name</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="userName"
+              type="text"
+              class="form-control"
+              placeholder="UserName"
+            />
+            <div *ngIf="onFieldValidators('userName')">
+              <span class="validator">is required</span>
+            </div>
+       <!--      <div class="invalid-feedback">Please choose a UserName.</div> -->
+            <!--             <div class="valid-feedback">Looks good!</div> -->
+            <label>UserName</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control"
+              placeholder="Email address"
+            />
+            <div *ngIf="onFieldValidators('email')">
+              <span class="validator">is required</span>
+            </div>
+       <!--      <div class="invalid-feedback">Please choose a Email.</div> -->
+            <!-- <div class="valid-feedback">Looks good!</div> -->
+            <label>Email address</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="age"
+              type="number"
+              class="form-control"
+              placeholder="Age"
+            />
+            <div *ngIf="onFieldValidators('age')">
+              <span class="validator">is required</span>
+            </div>
+         <!--    <div class="invalid-feedback">Please choose Age.</div> -->
+            <!--             <div class="valid-feedback">Looks good!</div> -->
+            <label>Age</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <div class="col-sm-10">
+          <div class="form-floating">
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              placeholder="Password"
+            />
+            <div *ngIf="onFieldValidators('password')">
+              <span class="validator">is required</span>
+            </div>
+   <!--          <div class="invalid-feedback">Please choose Password.</div> -->
+            <!--             <div class="valid-feedback">Looks good!</div> -->
+            <label>Password</label>
+          </div>
+        </div>
+      </div>
+
+    <div class="mb-3 row">
+      <div class="col-sm-10">
+        <div class="form-floating">
+          <input
+            formControlName="repeatPassword"
+            type="password"
+            class="form-control"
+            placeholder="repeatPassword"
+          />
+          <div *ngIf="onFieldValidators('repeatPassword')">
+            <span class="validator">password no coincide</span>
+          </div>
+ <!--          <div class="invalid-feedback">Please choose Password.</div> -->
+          <!--             <div class="valid-feedback">Looks good!</div> -->
+          <label>Repeat Password</label>
+        </div>
+      </div>
     </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <button mat-raised-button color="primary" type="submit"  [disabled]="myFormAuth.invalid">
+          <em class="fas fa-sign-in-alt">&nbsp;</em>
+          Create an account
+        </button>
+
+        <div>
+          Already have an account?&nbsp;
+          <button mat-raised-button [routerLink]="'/login'">Login</button>
+        </div>
+      </div>
+    </form>
   </div>
-</div>
 </div>

@@ -6,3 +6,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .w50{
     width: 50%;
 }
+
+.validator{
+    color: red;
+    margin-bottom: 5px;
+}
+
+.border{
+    border-radius: 18px;
+}
+
+.background{
+    background: linear-gradient(to bottom, #ece7ea, #a0b4aa, #afa8b6);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

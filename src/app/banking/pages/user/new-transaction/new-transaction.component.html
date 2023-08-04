@@ -1,26 +1,29 @@
-<form [formGroup]="myFormTransaction" (submit)="onSubmitTransaction()">
-  <div class="p-3">
-    <h2>new Transaction</h2>
-    <div class="card p-3">
+<div class="p-3">
+    <div class="p-3">
+      <h2 >New Transaction</h2>
+      <form [formGroup]="myFormTransaction" (submit)="onSubmitTransaction()">
       <div class="container">
-        <h1>Your Account balance : S/50.00</h1>
+        <div class="alert alert-success" role="alert">
+          <h2 class="alert-heading">Your Account balance : S/{{accountBalance.toString() | number:'1.2-2'}}</h2>
+        </div>
+        <hr>
         <div class="row">
           <p>
             <mat-form-field class="w50">
               <mat-label>Transaction Type</mat-label>
-              <mat-select formControlName="transactionType" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food">
-                  {{ food }}
+              <mat-select formControlName="type" name="transaction">
+                <mat-option *ngFor="let transaction of transactionsType" [value]="transaction">
+                  {{ transaction }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </p>
-          <p>
+          <p *ngIf="changeType()">
             <mat-form-field class="w50">
               <mat-label>Choose a contact</mat-label>
-              <mat-select formControlName="choseContacts" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food">
-                  {{ food }}
+              <mat-select formControlName="choseContacts" name="contact" (selectionChange)="onContactSelectionChange()">
+                <mat-option *ngFor="let contact of contacts" [value]="contact">
+                  {{ contact.firstName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -39,12 +42,13 @@
               <span matTextSuffix>.00</span>
             </mat-form-field>
           </p>
-          <p>
+          <p *ngIf="changeType()"> 
             <mat-form-field appearance="fill" class="w50">
               <mat-label>Number Account</mat-label>
               <input
                 type="text"
-                formControlName="numberAccount"
+                readonly
+                formControlName="destinationBank"
                 matInput
                 placeholder="AB10 751 145 341 145"
               />
@@ -53,11 +57,12 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <button mat-raised-button style="margin-right: 20px" color="accent">
+        <button (click)="cancel()" mat-raised-button style="margin-right: 20px" color="accent">
           Cancel
         </button>
-        <button mat-raised-button color="primary">Save</button>
+        <button mat-raised-button type="submit" color="primary">Save</button>
       </div>
+    </form>
     </div>
   </div>
-</form>
+

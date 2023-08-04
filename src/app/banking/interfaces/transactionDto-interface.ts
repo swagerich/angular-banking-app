@@ -1,12 +1,13 @@
-export interface TransactionDto{
-    id?:number;
-    type?:Type;
-    amount?:number;
-    destinationBank?:string;
-    transactionDate?:Date
-    userId?:number;
+export interface TransactionDto {
+  id?: number;
+  type?: 'DEPOSITO' | 'TRANSFERENCIA';
+  amount?: number;
+  choseContacts?: string | null;
+  destinationBank?: string;
+  transactionDate?: string;
+  userId?: number;
 }
-enum Type{
-    DEPOSITO,
-    TRANSFERENCIA
+enum Type {
+  DEPOSITO = 'DEPOSITO',
+  TRANSFERENCIA = 'TRANSFERENCIA',
 }
