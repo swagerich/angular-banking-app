@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authService.setUser(decodedTokenUser);
           if (this.authService.getUserRole() === 'ROLE_ADMIN') {
             this.route.navigate(['/admin/dashboard']);
-            this.authService.loginStatusSubject.next(true);
+            this.authService.loginStatusBehaviorSubject.next(true);
           } else if (this.authService.getUserRole() === 'ROLE_USER') {
             this.route.navigate(['/user/dashboard']);
-            this.authService.loginStatusSubject.next(true);
+            this.authService.loginStatusBehaviorSubject.next(true);
           } else {
             this.authService.logout();
           }

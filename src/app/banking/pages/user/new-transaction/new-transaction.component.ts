@@ -75,7 +75,7 @@ export class NewTransactionComponent implements OnInit, OnDestroy {
   }
 
   statistcAmount(userId:number):void{
-  this.subscription = this.statistcService.getStatistcAmount(userId).subscribe({
+  this.subscription = this.statistcService.getAccountAmount(userId).subscribe({
       next:(data ) =>{
         if(data != null){
           this.accountBalance = data;

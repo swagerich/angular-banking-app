@@ -1,0 +1,7 @@
+.navbar-brand-rotate {
+    transition: transform 2s ease;
+  }
+  
+  .navbar-brand-rotate:hover {
+    transform: rotate(360deg);
+  }

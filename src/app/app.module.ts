@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { authInterceptorProviders } from './banking/auth/auth.interceptor';
 import { AppComponent } from './app.component';
@@ -24,6 +24,20 @@ import { ManageUsersComponent } from './banking/pages/admin/manage-users/manage-
 import { UserLayoutComponent } from './banking/pages/user/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './banking/pages/admin/admin-layout/admin-layout.component';
 import { DashboardComponent } from './banking/pages/admin/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+
+const MY_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'yyyy-MM-dd',
+  },
+  display: {
+    dateInput: 'yyyy-MM-dd',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'yyyy-MM-dd',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -42,7 +56,7 @@ import { DashboardComponent } from './banking/pages/admin/dashboard/dashboard.co
     ManageUsersComponent,
     UserLayoutComponent,
     AdminLayoutComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,9 +64,13 @@ import { DashboardComponent } from './banking/pages/admin/dashboard/dashboard.co
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule,
   ],
-  providers: [authInterceptorProviders],
-  bootstrap: [AppComponent]
+  providers: [
+    authInterceptorProviders,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

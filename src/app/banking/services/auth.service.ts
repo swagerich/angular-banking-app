@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LoginDto } from '../interfaces/loginDto-interface';
 import { ClientDto } from '../interfaces/clientDto-interface';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ interface requestTokenDto {
   providedIn: 'root',
 })
 export class AuthService {
-  public loginStatusSubject = new Subject<boolean>();
+  public loginStatusBehaviorSubject = new BehaviorSubject<boolean>(false);
   private endPoint: string = 'http://localhost:8080/auth';
 
   private router = inject(Router);
@@ -49,6 +49,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.clear();
+    this.loginStatusBehaviorSubject.next(false);
     this.router.navigate(['/login']);
   }
 
