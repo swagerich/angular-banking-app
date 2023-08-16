@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environments } from 'src/app/environments/environments';
 import { TransactionSumaDetails } from '../interfaces/transactionSumaDetais';
+import { UsuariosDetails } from '../interfaces/usuariosDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class StatisticsService {
 
   public getAccountAmount(userId:number):Observable<number>{
     return this.http.get<number>(`${this.endPoint}/statistics/amount-max/${userId}`);
+  }
+
+  public countClientsByDate(startDate:string,lastDate:string):Observable<UsuariosDetails[]>{
+    return this.http.get<UsuariosDetails[]>(`${this.endPoint}/statistics/users?start-date=${startDate}&last-date=${lastDate}`);
   }
 }

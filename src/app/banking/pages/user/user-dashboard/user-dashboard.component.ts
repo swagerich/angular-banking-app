@@ -67,15 +67,23 @@ export class UserDashboardComponent implements OnInit,OnDestroy {
         tension: 0.5,
       },
     },
+    scales:{
+      y:{
+        beginAtZero: true,
+        ticks:{
+          stepSize: 1,
+      }
+    }
+    },
     plugins:{
      legend:{
       position:'bottom',
-      display:true,
-      labels:{
-        font:{
-          size:16
+      display: true,
+      labels: {
+        font: {
+          size: 16
         },
-        usePointStyle:true
+        usePointStyle: true
       }
     },
   

@@ -6,6 +6,7 @@ import { delay, Subscription, timeout } from 'rxjs';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidatorsService } from 'src/app/shared/validators.service';
+import { ClientDto } from 'src/app/banking/interfaces/clientDto-interface';
 
 @Component({
   selector: 'bank-manage-users',
@@ -23,7 +24,7 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
 
   public subscription: Subscription = new Subscription();
 
-  public clients: any[] = [];
+  public clients: ClientDto[] = [];
   
   public myFormManagerUser = this.fb.group({
     active: false,

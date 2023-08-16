@@ -6,6 +6,11 @@
       <em class="fa fa-plus">&nbsp;</em>  New Transaction
     </button>
 </div>
+<div  class="d-flex justify-content-end mb-1">
+  <button type="button" (click)="onExcel()" [disabled]="isDisabled" class="btn btn-warning">
+    <em class="fa fa-download">&nbsp;</em>  Print Excel
+  </button>
+</div>
 <mat-form-field>
   <mat-label>Search</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="..." #input>

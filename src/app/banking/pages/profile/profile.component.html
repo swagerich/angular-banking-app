@@ -1,68 +1,114 @@
-<div class="p-3">
-  <h2>new Contact</h2>
-  <div class="d-flex flex-row justify-content-between">
-    <div class="card p-3 col-6">
-      <h3>Personal Info</h3>
-      <p>
+<div class="p-3 m-3 fade-in">
+  <h2>Profile</h2>
+  <hr />
+  <form [formGroup]="myFormProfile" (submit)="onSaveAddress()">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="card p-3 col-5">
+        <h3 class="text-center">Personal Info</h3>
+        <hr />
         <mat-form-field appearance="outline">
-          <mat-label>FirstName</mat-label>
-          <input type="text" matInput placeholder="FirtName" />
+          <mat-label>Full Name</mat-label>
+          <input
+            type="text"
+            readonly
+            [value]="user"
+            matInput
+            placeholder="FirtName"
+          />
         </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>LastName</mat-label>
-          <input matInput placeholder="LastName" />
-        </mat-form-field>
-      </p>
-
-      <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input type="email" matInput placeholder="mail@gmail.com" />
+          <input
+            type="email"
+            readonly
+            matInput
+            value="jhonDoe@gmail.com"
+            placeholder="mail@gmail.com"
+          />
         </mat-form-field>
-      </p>
-    </div>
+      </div>
 
-    <div class="card p-3 col-6">
-      <h3>Address</h3>
-      <p>
+      <div class="card p-3 col-6">
+        <h3 class="text-center">Address</h3>
+        <hr />
         <mat-form-field appearance="outline">
           <mat-label>Street</mat-label>
-          <input type="text" matInput placeholder="Street" />
+          <input
+            type="text"
+            formControlName="street"
+            [readonly]="readOnly"
+            matInput
+            placeholder="Street"
+          />
+          <mat-error *ngIf="onFieldValidator('street')">
+            is required
+          </mat-error>
         </mat-form-field>
-      </p>
-      <p>
+
         <mat-form-field appearance="outline">
           <mat-label>Direction</mat-label>
-          <input matInput placeholder="house number" />
+          <input
+            type="text"
+            matInput
+            formControlName="direction"
+            [readonly]="readOnly"
+            placeholder="house number"
+          />
+          <mat-error *ngIf="onFieldValidator('direction')">
+            is required
+          </mat-error>
         </mat-form-field>
-      </p>
 
-      <p>
         <mat-form-field appearance="outline">
           <mat-label>Code Postal</mat-label>
-          <input type="email" matInput placeholder="Postal" />
+          <input
+            type="number"
+            formControlName="codePostal"
+            matInput
+            [readonly]="readOnly"
+            placeholder="Postal"
+          />
+          <mat-error *ngIf="onFieldValidator('codePostal')">
+            is required
+          </mat-error>
         </mat-form-field>
-      </p>
-      <p>
+
         <mat-form-field appearance="outline">
           <mat-label>City</mat-label>
-          <input type="email" matInput placeholder="City" />
+          <input
+            type="n"
+            formControlName="city"
+            matInput
+            [readonly]="readOnly"
+            placeholder="City"
+          />
+          <mat-error *ngIf="onFieldValidator('city')"> is required </mat-error>
         </mat-form-field>
-      </p>
-      <p>
+
         <mat-form-field appearance="outline">
           <mat-label>Country</mat-label>
-          <input type="email" matInput placeholder="Country" />
+          <input
+            type="text"
+            formControlName="country"
+            matInput
+            [readonly]="readOnly"
+            placeholder="Country"
+          />
+          <mat-error *ngIf="onFieldValidator('country')">
+            is required
+          </mat-error>
         </mat-form-field>
-      </p>
-      
+      </div>
     </div>
-
-  </div>
-  <div class="d-flex justify-content-center mt-3">
-    <button mat-raised-button style="margin-right: 20px" color="accent">Cancel</button>
-    <button mat-raised-button color="primary">Save</button>
-  </div>
+    <div class="d-flex justify-content-center mt-3">
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="myFormProfile.invalid || disableButton"
+      >
+        Save
+      </button>
+    </div>
+  </form>
 </div>

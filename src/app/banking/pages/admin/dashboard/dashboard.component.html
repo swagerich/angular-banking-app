@@ -1,1 +1,79 @@
-<p>dashboard works!</p>
+<div class="m-3 p-3 fade-in" [formGroup]="myFormDasboardAdmin">
+    <h2>Show Details</h2>
+    <hr />
+    <div
+      class="d-flex flex-row card justify-content-between card me-5 ms-5 mb-2 p-3"
+    >
+      <banking-statistcs-info *ngFor="let list of infoList"  [infoInputCustomers]="list">
+      </banking-statistcs-info>
+    </div>
+  
+    <div class="card m-3 p-3">
+      <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-row align-item-start">
+          <div class="me-3">
+            <mat-form-field color="accent">
+              <mat-label>Start Date</mat-label>
+              <input
+                matInput
+                [min]="minDate"
+                [max]="maxDate"
+                formControlName="startDate"
+                [matDatepicker]="startDatePicker"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="startDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+  
+          <div class="me-3">
+            <mat-form-field color="accent">
+              <mat-label>Last Date</mat-label>
+              <input
+                matInput
+                [min]="minDate"
+                [max]="maxDate"
+                formControlName="lastDate"
+                [matDatepicker]="lastDatePicker"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="lastDatePicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #lastDatePicker color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="mt-3">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onDetilsClient()"
+            [disabled]="myFormDasboardAdmin.invalid"
+          >
+            search
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card m-3 p-3 ">
+      <div>
+        <canvas
+          baseChart
+          [type]="lineChartType"
+          [data]="lineChartData"
+          [options]="chartOptions"
+          [legend]="true"
+        >
+        </canvas>
+       
+      </div>
+    </div>
+  </div>
+  
+  

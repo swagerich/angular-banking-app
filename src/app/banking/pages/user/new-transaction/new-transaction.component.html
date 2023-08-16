@@ -12,7 +12,7 @@
             <mat-form-field class="w50">
               <mat-label>Transaction Type</mat-label>
               <mat-select formControlName="type" name="transaction">
-                <mat-option *ngFor="let transaction of transactionsType" [value]="transaction">
+                <mat-option *ngFor="let transaction of transactionsType" [value]="transaction" [disabled]="accountBalance <= 0 && transaction === 'TRANSFERENCIA'">
                   {{ transaction }}
                 </mat-option>
               </mat-select>

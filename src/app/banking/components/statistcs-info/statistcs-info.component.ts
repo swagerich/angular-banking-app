@@ -1,11 +1,31 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 export interface StaticsInput {
   title?: string;
   amount?: number;
   infoStyle?: 'bg-primary' | 'bg-success' | 'bg-secondary' | 'bg-warning';
 }
+
+export interface StaticInputCustomer {
+  title?: string;
+  customers?: number;
+  infoStyle?:
+    | 'bg-primary'
+    | 'bg-success'
+    | 'bg-secondary'
+    | 'bg-warning'
+    | 'bg-danger'
+    | 'bg-info';
+}
+
 @Component({
   selector: 'banking-statistcs-info',
   templateUrl: './statistcs-info.component.html',
@@ -29,9 +49,10 @@ export interface StaticsInput {
     ]),
   ],
 })
-export class StatistcsInfoComponent implements OnInit{
-  
+export class StatistcsInfoComponent implements OnInit {
   public cardState: string = 'normal';
+
+  public authService = inject(AuthService);
 
   onCardHover(isHovered: boolean) {
     this.cardState = isHovered ? 'hovered' : 'normal';
@@ -40,12 +61,17 @@ export class StatistcsInfoComponent implements OnInit{
   @Input()
   public infoInput: StaticsInput = {};
 
+  @Input()
+  public infoInputCustomers: StaticInputCustomer = {};
 
   ngOnInit(): void {
-    if(!this.infoInput){
+    if (!this.infoInput || !this.infoInputCustomers) {
       throw new Error('Object infoInput  in error not  exists!');
     }
-   
   }
-  
+
+  isRole(): boolean {
+    let role = this.authService.getUserRole();
+    return role === 'ROLE_USER';
+  }
 }

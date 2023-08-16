@@ -1,6 +1,17 @@
-<div class="card text-center text-white" [@cardHover]="cardState" (mouseenter)="onCardHover(true)" (mouseleave)="onCardHover(false)" [ngClass]="infoInput.infoStyle || 'bg-secondary'" style="max-width: 24rem">
+<div *ngIf="isRole();else admin" class="card text-center text-white" [@cardHover]="cardState" (mouseenter)="onCardHover(true)" (mouseleave)="onCardHover(false)" [ngClass]="infoInput.infoStyle || 'bg-secondary'" style="max-width: 24rem">
   <div class="card-body" >
     <h3 class="card-title">{{ infoInput.title }}</h3>
     <h1 class="card-text">S/{{(infoInput.amount ? infoInput.amount  : '0') | number:'1.0-2'}}</h1>
   </div>
 </div>
+
+<ng-template #admin>
+  <div class="card text-center text-white" [@cardHover]="cardState" (mouseenter)="onCardHover(true)" (mouseleave)="onCardHover(false)" [ngClass]="infoInputCustomers.infoStyle || 'bg-secondary'" style="max-width: 24rem">
+    <div class="card-body" >
+      <h3 class="card-title">{{ infoInputCustomers.title }}</h3>
+      <h1 class="card-text">{{ infoInputCustomers.customers }}</h1>
+    </div>
+  </div>
+</ng-template>
+
+
