@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { environments } from 'src/app/environments/environments';
+import { environments } from 'src/app/environments/environment';
 import { TransactionDto } from '../interfaces/transactionDto-interface';
 import { TransactionDtoPageByUser } from '../interfaces/transactionDtoPage-interface';
 

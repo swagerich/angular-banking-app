@@ -16,6 +16,13 @@ import { adminGuard } from './banking/auth/guards/admin.guard';
 import { ContactsComponent } from './banking/pages/user/contacts/contacts.component';
 
 const routes: Routes = [
+
+  {
+    path: '',
+    component: LoginComponent,
+    pathMatch:'full'
+  },
+
   {
     path: 'signup',
     component: SignupComponent,

@@ -6,9 +6,10 @@ import { ClientDto } from '../interfaces/clientDto-interface';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-interface requestTokenDto {
+export interface jwtResponse {
   accessToken: string;
-  type: string;
+  refreshToken: string;
+  tokenType: string;
 }
 
 @Injectable({
@@ -22,12 +23,17 @@ export class AuthService {
 
   private http = inject(HttpClient);
 
-  login(login: LoginDto): Observable<requestTokenDto> {
-    return this.http.post<requestTokenDto>(`${this.endPoint}/login`, login);
+  login(login: LoginDto): Observable<jwtResponse> {
+    return this.http.post<jwtResponse>(`${this.endPoint}/login`, login);
   }
 
-  signup(client: ClientDto): Observable<any> {
-    return this.http.post<any>(`${this.endPoint}/register`, client);
+  signup(client: ClientDto): Observable<jwtResponse> {
+    return this.http.post<jwtResponse>(`${this.endPoint}/register`, client);
+  }
+
+  saveRefreshToken(refresh:string) : Observable<jwtResponse>{
+    let body = { token : refresh }
+    return this.http.post<jwtResponse>(`${this.endPoint}/refresh`,body);
   }
 
  /*  currentUser(): Observable<any> {
@@ -41,6 +47,15 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('accessToken');
+  }
+
+  setRefreshToken(refreshToken: string) : boolean {
+    localStorage.setItem('refreshToken', refreshToken);
+    return true;
+  }
+
+  getRefreshToken(): string | null{
+    return localStorage.getItem('refreshToken');
   }
 
   setUser(user: string) {
@@ -62,14 +77,13 @@ export class AuthService {
     }
   }
 
-  isTokenExpiret():boolean{
-    const jwtHelper = new JwtHelperService();
-    const isTokenExpired = jwtHelper.isTokenExpired();
-    if(isTokenExpired){
-      localStorage.clear();
-      return false;
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) {
+      return true;
     }
-    return false;
+    const jwtHelper = new JwtHelperService();
+    return jwtHelper.isTokenExpired(token);
   }
   
   getUser() {

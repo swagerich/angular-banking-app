@@ -6,15 +6,25 @@ import { AddressDto } from '../../interfaces/addressDto-interface';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidatorsService } from 'src/app/shared/validators.service';
-import { Subscription } from 'rxjs';
+import {
+  Subscription,
+  Observable,
+  mergeMap,
+  EMPTY,
+  of,
+  catchError,
+  filter,
+  firstValueFrom,
+  map,
+  switchMap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit,OnDestroy {
- 
+export class ProfileComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
 
   private validatorsService = inject(ValidatorsService);
@@ -26,12 +36,13 @@ export class ProfileComponent implements OnInit,OnDestroy {
   private subscription = new Subscription();
 
   public user: string = '';
-  
-  public disableButton : boolean = false;
 
-  public readOnly : boolean = false;
+  public disableButton: boolean = false;
+
+  public readOnly: boolean = false;
 
   public myFormProfile: FormGroup = this.fb.group({
+    id: [''],
     street: ['', [Validators.required]],
     direction: ['', [Validators.required]],
     codePostal: ['', [Validators.required]],
@@ -44,11 +55,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
     const userId = this.authService.getUser().userId;
     this.myFormProfile.get('userId')?.setValue(userId);
     this.userLocalStorage();
-
-    const isAddres = localStorage.getItem('isAddress');
-    if (isAddres === 'true') {
-      this.getAddressByUserId(userId);
-    }
+    this.getAddressByUserId(userId);
   }
 
   userLocalStorage(): void {
@@ -64,19 +71,16 @@ export class ProfileComponent implements OnInit,OnDestroy {
       this.myFormProfile.markAllAsTouched();
       return;
     }
-   this.addressService.saveAddressByUserId(this.currentAddress).subscribe({
+    this.addressService.saveAddressByUserId(this.currentAddress).subscribe({
       next: (data: AddressDto) => {
         Swal.fire('Exito!', 'Address registered successfully!', 'success').then(
           (e) => {
             if (e.isConfirmed) {
               this.disableButton = true;
-              this.readOnly=true
-              localStorage.setItem('isAddress', 'true');
-             // this.myFormProfile.disable();
+              this.readOnly = true;
             }
           }
         );
-        console.log(this.myFormProfile.value);
       },
       error: (e: HttpErrorResponse) => {
         this.validatorsService.showSnackBarForError(e);
@@ -85,19 +89,27 @@ export class ProfileComponent implements OnInit,OnDestroy {
   }
 
   getAddressByUserId(userId: number): void {
-  this.subscription =  this.addressService.findAddresById(userId).subscribe({
-      next: (data: AddressDto) => {
-        if (data) {
-          this.disableButton = true;
-          this.readOnly = true
-          this.myFormProfile.patchValue(data);
-          //this.myFormProfile.disable();
-        }
-      },
-      error: (e: HttpErrorResponse) => {
-        this.validatorsService.showSnackBarForError(e);
-      },
+    this.validateUser(userId).subscribe((isValid) => {
+      if (isValid) {
+        this.addressService.findAddresByUserId(userId).subscribe({
+          next: (data: AddressDto) => {
+            if (data) {
+              this.disableButton = true;
+              this.readOnly = true;
+              this.myFormProfile.patchValue(data);
+              //this.myFormProfile.disable();
+            }
+          },
+          error: (e: HttpErrorResponse) => {
+            this.validatorsService.showSnackBarForError(e);
+          },
+        });
+      }
     });
+  }
+
+  private validateUser(userId: number): Observable<Boolean> {
+    return this.addressService.existsByUserId(userId);
   }
 
   onFieldValidator(field: string): boolean | null {
@@ -105,7 +117,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.subscription){
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }

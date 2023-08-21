@@ -5,7 +5,7 @@ import { LoginDto } from '../../interfaces/loginDto-interface';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidatorsService } from 'src/app/shared/validators.service';
-import { Subscription, catchError, switchMap, throwError } from 'rxjs';
+import { Subscription} from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription = this.authService.login(this.currentUserLoginDto).subscribe({
         next: (data) => {
           this.authService.setToken(data.accessToken);
+          this.authService.setRefreshToken(data.refreshToken);
           const helper = new JwtHelperService();
           const decodedTokenUser = helper.decodeToken(data.accessToken);
           console.log(decodedTokenUser);

@@ -30,13 +30,15 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   public transactionId: number = 0;
 
+  public loadingDialog: any;
+
   private userId: number = 0;
 
   public isDisabled: boolean = false;
 
   ngOnInit(): void {
     this.userId = this.authService.getUser().userId;
-    this.showCommentsPageWithPublication();
+    this.showTransactionPage();
   }
 
   displayedColumns: string[] = [
@@ -61,7 +63,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   onExcel(): void {
-    Swal.fire({
+   this.onClosedDialog();
+   this.loadingDialog = Swal.fire({
       title: 'Download...',
       html: 'Please wait...',
       allowEscapeKey: false,
@@ -82,7 +85,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           link.download = 'transactions.xlsx'; //AQUI FALTA CAMBIAR EL NOMBRE RANDOM COMO EN EL BACKEND !!
           link.click();
           window.URL.revokeObjectURL(url);
-          Swal.close();
+          this.onClosedDialog();
         },
         error: (e: HttpErrorResponse) => {
           this.validatorService.showSnackBarForError(e);
@@ -97,8 +100,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     return (this.isDisabled = false);
   }
 
-  showCommentsPageWithPublication(): void {
-    Swal.fire({
+  showTransactionPage(): void {
+  this.loadingDialog =  Swal.fire({
       title: 'Uploading Data...',
       html: 'Please wait...',
       allowEscapeKey: false,
@@ -127,10 +130,11 @@ export class TransactionsComponent implements OnInit, OnDestroy {
             this.transactions
           );
           this.onDisabled();
-          Swal.close();
+          this.onClosedDialog();
         },
         error: (e: HttpErrorResponse) => {
           this.validatorService.showSnackBarForError(e);
+          this.onClosedDialog();
         },
       });
   }
@@ -164,6 +168,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    this.onClosedDialog();
+  }
+  
+  onClosedDialog(): void {
+    if(this.loadingDialog){
+      Swal.close();
     }
   }
 }

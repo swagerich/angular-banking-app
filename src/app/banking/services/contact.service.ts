@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environments } from 'src/app/environments/environments';
+import { environments } from 'src/app/environments/environment';
 import { ContactDto } from '../interfaces/contactDto-interface';
 
 @Injectable({

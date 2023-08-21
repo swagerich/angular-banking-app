@@ -26,6 +26,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
+  private loadingDialog : any;
+
   public displayedColumns: string[] = [
     'firstName',
     'lastName',
@@ -38,7 +40,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   contactsAll(): void {
-    Swal.fire({
+  this.closedLoadingDialog();
+  this.loadingDialog =  Swal.fire({
       title: 'Uploading...',
       html: 'Please wait...',
       allowEscapeKey: false,
@@ -53,8 +56,12 @@ export class ContactsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: ContactDto[]) => {
           this.contacts = data;
-          Swal.close();
+          this.closedLoadingDialog();
         },
+        error:(e:HttpErrorResponse) =>{
+          this.validators.showSnackBarForError(e);
+          this.closedLoadingDialog();
+        }
       });
   }
 
@@ -71,7 +78,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
         confirmButtonText: 'Yes, Deleted!',
       }).then((c) => {
         if (c.isConfirmed) {
-          this.contactService.deleteContactById(id).subscribe({
+       this.subscription = this.contactService.deleteContactById(id).subscribe({
             next: () => {
               Swal.fire(
                 'Removed!',
@@ -96,6 +103,13 @@ export class ContactsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    this.closedLoadingDialog();
+  }
+
+  closedLoadingDialog() : void {
+    if(this.loadingDialog){
+        Swal.close();
     }
   }
 }

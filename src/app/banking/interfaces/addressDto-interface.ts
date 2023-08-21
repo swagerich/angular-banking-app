@@ -1,5 +1,5 @@
 export interface AddressDto {
-  id?: number;
+  id: number;
   street: string;
   direction: string;
   codePostal: number;
